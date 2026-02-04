@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshMart | Premium Organic Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>Fresh<span>Mart</span></h1>
+                            <p>Premium Organic Store</p>
+                        </div>
+                    </a>
+
+                    <div class="nav-middle">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search fruits, vegetables...">
+                            <button class="search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="nav-right">
+                        <div class="nav-icons">
+                            <a href="index.html" class="nav-icon home-icon">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="products.html" class="nav-icon">
+                                <i class="fas fa-store"></i>
+                                <span>Shop</span>
+                            </a>
+                            <a href="cart.html" class="nav-icon cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Cart</span>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                            <div class="user-dropdown">
+                                <button class="nav-icon user-icon">
+                                    <i class="fas fa-user"></i>
+                                    <span id="userStatus">Account</span>
+                                </button>
+                                <div class="dropdown-menu" id="userDropdownMenu">
+                                    <!-- Will be populated by auth-system.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== HERO BANNER ========== -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Fresh Organic <span class="hero-highlight">Produce</span> Delivered to Your Door</h1>
+                <p>Experience the goodness of farm-fresh, 100% organic fruits and vegetables delivered right to your doorstep. Quality you can taste!</p>
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-primary">
+                        <i class="fas fa-shopping-bag"></i> Shop Now
+                    </a>
+                    <a href="#categories" class="btn btn-secondary">
+                        <i class="fas fa-apple-alt"></i> Browse Categories
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>5,000+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Organic Products</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>Customer Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&auto=format&fit=crop" alt="Fresh Organic Fruits">
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURED CATEGORIES ========== -->
+<!-- ========== FEATURED CATEGORIES ========== -->
+<section class="featured-categories" id="categories">
+    <div class="container">
+        <div class="section-header">
+            <h2>Shop by Category</h2>
+            <p>Browse our wide selection of fresh organic products</p>
+        </div>
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/fruits.jpg'); background-size: cover; background-position: center;"></div>
+                <div class="category-content">
+                    <h3>Fresh Fruits</h3>
+                    <p>Seasonal & organic fruits</p>
+                    <a href="products.html?category=fruits" class="category-link">
+                        Shop Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/veg.jpg'); background-size: cover; background-position: center;"></div>
+                <div class="category-content">
+                    <h3>Vegetables</h3>
+                    <p>Farm fresh vegetables</p>
+                    <a href="products.html?category=vegetables" class="category-link">
+                        Shop Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/exotic fruits.webp'); background-size: cover; background-position: center;"></div>
+                <div class="category-content">
+                    <h3>Exotic Fruits</h3>
+                    <p>Unique & imported</p>
+                    <a href="products.html?category=exotic" class="category-link">
+                        Shop Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- ========== FEATURED PRODUCTS ========== -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Handpicked fresh from our farms</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">All Products</button>
+                <button class="filter-btn" data-category="fruits"><i class="fas fa-apple-alt"></i> Fruits</button>
+                <button class="filter-btn" data-category="vegetables"><i class="fas fa-carrot"></i> Vegetables</button>
+                <button class="filter-btn" data-category="exotic"><i class="fas fa-pepper-hot"></i> Exotic</button>
+            </div>
+
+            <div id="productsContainer" class="products-grid">
+                <!-- Products will be loaded by script.js -->
+            </div>
+
+            <div class="view-more-container">
+                <a href="products.html" class="btn-view-more">
+                    <i class="fas fa-store"></i> View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose FreshMart?</h2>
+                <p>Experience the difference with our premium service</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck-fast"></i>
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>Same day delivery in selected areas</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>100% Organic</h3>
+                    <p>Certified pesticide-free produce</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Quality Guarantee</h3>
+                    <p>Freshness guaranteed or money back</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive prices with no compromise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== NEWSLETTER ========== -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Get the latest updates on new products and special offers</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">
+                        Subscribe <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h2>Fresh<span>Mart</span></h2>
+                            <p>Premium Organic Store</p>
+                        </div>
+                    </div>
+                    <p class="footer-desc">Delivering fresh organic produce since 2024. Your health is our priority.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop All</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruits">Fresh Fruits</a></li>
+                        <li><a href="products.html?category=vegetables">Vegetables</a></li>
+                        <li><a href="products.html?category=exotic">Exotic Fruits</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Organic Street, Fresh City</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> support@freshmart.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sun: 7 AM - 11 PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 FreshMart. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="auth-system.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Newsletter form
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    if (email) {
+                        alert('Thank you for subscribing to our newsletter!');
+                        this.reset();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

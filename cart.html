@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | FreshMart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        .cart-page {
+            padding: 80px 0;
+            min-height: 70vh;
+        }
+        
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cart-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .cart-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+        
+        .cart-items {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart h3 {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            align-items: center;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .cart-item-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--light-gray);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+        }
+        
+        .cart-summary {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .summary-total {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 10px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .checkout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .checkout-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .continue-shopping {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+        
+        .continue-shopping:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Order Success Styles */
+        .order-success {
+            text-align: center;
+            padding: 40px 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .success-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .order-details {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            max-width: 400px;
+            margin: 0 auto 30px;
+        }
+        
+        .order-details h4 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 992px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cart-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .cart-item-image {
+                margin: 0 auto;
+            }
+            
+            .cart-item-controls {
+                justify-content: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>Fresh<span>Mart</span></h1>
+                            <p>Premium Organic Store</p>
+                        </div>
+                    </a>
+
+                    <div class="nav-middle">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search fruits, vegetables...">
+                            <button class="search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="nav-right">
+                        <div class="nav-icons">
+                            <a href="index.html" class="nav-icon">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="products.html" class="nav-icon">
+                                <i class="fas fa-store"></i>
+                                <span>Shop</span>
+                            </a>
+                            <a href="cart.html" class="nav-icon home-icon cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Cart</span>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                            <div class="user-dropdown">
+                                <button class="nav-icon user-icon">
+                                    <i class="fas fa-user"></i>
+                                    <span id="userStatus">Account</span>
+                                </button>
+                                <div class="dropdown-menu" id="userDropdownMenu">
+                                    <!-- Will be populated by auth-system.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== CART PAGE ========== -->
+    <section class="cart-page">
+        <div class="container cart-container">
+            <div class="cart-header">
+                <h1><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+                <p>Review your items and proceed to checkout</p>
+            </div>
+            
+            <div class="cart-content">
+                <div class="cart-items" id="cartItemsContainer">
+                    <!-- Cart items will be loaded by JavaScript -->
+                    <div class="empty-cart" id="emptyCart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious organic products to get started!</p>
+                        <a href="products.html" class="continue-shopping">
+                            <i class="fas fa-store"></i> Start Shopping
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="cart-summary" id="cartSummary">
+                    <div class="summary-header">Order Summary</div>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span>FREE</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Total</span>
+                        <span class="summary-total" id="total">₹0</span>
+                    </div>
+                    <button class="checkout-btn" id="checkoutBtn" disabled>
+                        <i class="fas fa-lock"></i> Proceed to Checkout
+                    </button>
+                    <a href="products.html" class="continue-shopping">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 FreshMart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="auth-system.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Load cart items
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            
+            // Setup search
+            const searchBtn = document.querySelector('.search-btn');
+            const searchInput = document.querySelector('.search-input');
+            
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    window.location.href = 'products.html';
+                });
+                
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        window.location.href = 'products.html';
+                    }
+                });
+            }
+        });
+        
+        function loadCartItems() {
+            const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartSummary = document.getElementById('cartSummary');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            // Update cart count in header
+            updateCartCountInHeader();
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartSummary.style.display = 'none';
+                checkoutBtn.disabled = true;
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartSummary.style.display = 'block';
+            checkoutBtn.disabled = false;
+            
+            // Calculate totals
+            let subtotal = 0;
+            
+            // Clear and rebuild cart items
+            cartItemsContainer.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemHTML = `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}" 
+                                 onerror="this.onerror=null; this.src='${getFallbackImage(item.category)}';">
+                        </div>
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-price">₹${item.price}/${item.per}</div>
+                            <div class="cart-item-controls">
+                                <div class="cart-item-qty">
+                                    <button class="qty-btn minus-btn" data-id="${item.id}">-</button>
+                                    <input type="number" class="qty-input" value="${item.quantity}" min="1" max="10" data-id="${item.id}">
+                                    <button class="qty-btn plus-btn" data-id="${item.id}">+</button>
+                                </div>
+                                <button class="remove-item" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cart-item-total">
+                            <div class="cart-item-price">₹${itemTotal}</div>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.innerHTML += cartItemHTML;
+            });
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = `₹${subtotal}`;
+            document.getElementById('total').textContent = `₹${subtotal}`;
+            
+            // Add event listeners
+            addCartEventListeners();
+        }
+        
+        function getFallbackImage(category) {
+            if (category === 'fruits') {
+                return 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop';
+            } else if (category === 'vegetables') {
+                return 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400&h=300&fit=crop';
+            } else {
+                return 'https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=400&h=300&fit=crop';
+            }
+        }
+        
+        function addCartEventListeners() {
+            // Quantity buttons
+            document.querySelectorAll('.qty-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    const input = this.parentElement.querySelector('.qty-input');
+                    let value = parseInt(input.value);
+                    
+                    if (this.classList.contains('plus-btn')) {
+                        value = Math.min(value + 1, 10);
+                    } else if (this.classList.contains('minus-btn')) {
+                        value = Math.max(value - 1, 1);
+                    }
+                    
+                    input.value = value;
+                    updateCartItem(productId, value);
+                });
+            });
+            
+            // Quantity input changes
+            document.querySelectorAll('.qty-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const productId = parseInt(this.dataset.id);
+                    const value = Math.max(1, Math.min(10, parseInt(this.value) || 1));
+                    this.value = value;
+                    updateCartItem(productId, value);
+                });
+            });
+            
+            // Remove item buttons
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    removeCartItem(productId);
+                });
+            });
+            
+            // Checkout button
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                const user = JSON.parse(localStorage.getItem('freshmart_current_user'));
+                const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+                
+                if (!user) {
+                    alert('Please login to proceed to checkout');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                if (cart.length === 0) {
+                    alert('Your cart is empty!');
+                    return;
+                }
+                
+                // Calculate total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Create order object
+                const order = {
+                    id: 'ORD' + Date.now(),
+                    userId: user.id,
+                    userEmail: user.email,
+                    userName: user.fullName,
+                    items: [...cart],
+                    total: total,
+                    date: new Date().toISOString(),
+                    status: 'Confirmed'
+                };
+                
+                // Get existing orders
+                const orders = JSON.parse(localStorage.getItem('freshmart_orders')) || [];
+                orders.push(order);
+                localStorage.setItem('freshmart_orders', JSON.stringify(orders));
+                
+                // Clear cart after successful order
+                localStorage.removeItem('freshCart');
+                
+                // Show success message
+                const successHTML = `
+                    <div class="order-success">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 style="color: var(--success); margin-bottom: 15px;">Order Placed Successfully!</h2>
+                        <p style="color: var(--gray); margin-bottom: 25px; font-size: 1.1rem;">
+                            Thank you for your order. Your order ID is: <strong>${order.id}</strong>
+                        </p>
+                        <div class="order-details">
+                            <h4>Order Summary</h4>
+                            <div style="text-align: left;">
+                                <div class="detail-row">
+                                    <span>Items:</span>
+                                    <span>${cart.length}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Total Amount:</span>
+                                    <span style="font-weight: bold; color: var(--primary);">₹${total}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span>Order Status:</span>
+                                    <span style="color: var(--success); font-weight: bold;">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <a href="products.html" class="btn btn-primary">
+                                <i class="fas fa-shopping-bag"></i> Continue Shopping
+                            </a>
+                            <a href="index.html" class="btn btn-secondary">
+                                <i class="fas fa-home"></i> Back to Home
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                // Replace cart content with success message
+                document.querySelector('.cart-content').innerHTML = successHTML;
+                
+                // Update cart count in header
+                updateCartCountInHeader();
+                
+                // Play success sound (optional)
+                try {
+                    const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3');
+                    audio.volume = 0.3;
+                    audio.play();
+                } catch (e) {
+                    console.log('Audio not available');
+                }
+            });
+        }
+        
+        function updateCartItem(productId, quantity) {
+            const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = quantity;
+                localStorage.setItem('freshCart', JSON.stringify(cart));
+                loadCartItems();
+            }
+        }
+        
+        function removeCartItem(productId) {
+            let cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('freshCart', JSON.stringify(cart));
+            loadCartItems();
+        }
+        
+        function updateCartCountInHeader() {
+            const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+    </script>
+</body>
+</html>

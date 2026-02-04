@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products | FreshMart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>Fresh<span>Mart</span></h1>
+                            <p>Premium Organic Store</p>
+                        </div>
+                    </a>
+
+                    <div class="nav-middle">
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Search fruits, vegetables...">
+                            <button class="search-btn"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="nav-right">
+                        <div class="nav-icons">
+                            <a href="index.html" class="nav-icon">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="products.html" class="nav-icon home-icon">
+                                <i class="fas fa-store"></i>
+                                <span>Shop</span>
+                            </a>
+                            <a href="cart.html" class="nav-icon cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Cart</span>
+                                <span class="cart-count" id="cartCount">0</span>
+                            </a>
+                            <div class="user-dropdown">
+                                <button class="nav-icon user-icon">
+                                    <i class="fas fa-user"></i>
+                                    <span id="userStatus">Account</span>
+                                </button>
+                                <div class="dropdown-menu" id="userDropdownMenu">
+                                    <!-- Will be populated by auth-system.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== ALL PRODUCTS ========== -->
+    <section class="featured-products" style="padding-top: 40px; min-height: 70vh;">
+        <div class="container">
+            <div class="section-header">
+                <h2>All Organic Products</h2>
+                <p>Browse our complete collection of fresh produce</p>
+            </div>
+            
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">All Products</button>
+                <button class="filter-btn" data-category="fruits"><i class="fas fa-apple-alt"></i> Fruits</button>
+                <button class="filter-btn" data-category="vegetables"><i class="fas fa-carrot"></i> Vegetables</button>
+                <button class="filter-btn" data-category="exotic"><i class="fas fa-pepper-hot"></i> Exotic</button>
+            </div>
+
+            <div id="productsContainer" class="products-grid">
+                <!-- Products will be loaded by script.js -->
+            </div>
+
+            <div class="view-more-container">
+                <button id="viewMoreBtn" class="btn-view-more">
+                    <i class="fas fa-chevron-down"></i> Load More Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h2>Fresh<span>Mart</span></h2>
+                            <p>Premium Organic Store</p>
+                        </div>
+                    </div>
+                    <p class="footer-desc">Delivering fresh organic produce since 2024.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop All</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=fruits">Fresh Fruits</a></li>
+                        <li><a href="products.html?category=vegetables">Vegetables</a></li>
+                        <li><a href="products.html?category=exotic">Exotic Fruits</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 FreshMart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="auth-system.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            const cart = JSON.parse(localStorage.getItem('freshCart')) || [];
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Check URL for category parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            
+            if (categoryParam) {
+                // Set active filter button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.category === categoryParam) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
